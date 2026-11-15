@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "oxlint --deny-warnings .",
+    "format": "oxfmt --write --no-error-on-unmatched-pattern .",
+    "format:check": "oxfmt --check --no-error-on-unmatched-pattern .",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
   },
   "keywords": [],
   "author": "",

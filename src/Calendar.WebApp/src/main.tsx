@@ -7,5 +7,5 @@ const root = createRoot(rootElement as any);
 root.render(
   <StrictMode>
     <>Hello, World!</>
-  </StrictMode>
+  </StrictMode>,
 );
