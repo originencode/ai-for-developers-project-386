@@ -1,0 +1,73 @@
+amends "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.12.0/hk@2.12.0#/Builtins.pkl"
+
+// Fast checks: run on staged files in the pre-commit hook.
+local fast = new Mapping<String, Step> {
+  ["trailing-whitespace"] = Builtins.trailing_whitespace
+  ["newlines"] = Builtins.newlines
+  ["check-merge-conflict"] = Builtins.check_merge_conflict
+  ["detect-private-key"] = Builtins.detect_private_key
+  ["betterleaks"] = Builtins.betterleaks
+  // The builtin's check is an sh script, which does not run on Windows.
+  ["typos"] = (Builtins.typos) {
+    check = "typos --force-exclude {{files}}"
+    fix = "typos --force-exclude --write-changes {{files}}"
+  }
+  ["rumdl"] = Builtins.rumdl
+  ["oxlint"] = Builtins.ox_lint
+  // oxfmt also formats JSON/YAML/TOML/Markdown; that would fight rumdl and
+  // touch files we must not edit (hexlet-check.yml). JS/TS only.
+  ["oxfmt"] = (Builtins.oxfmt) {
+    glob = List("**/*.js", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.mts", "**/*.cts", "**/*.jsx", "**/*.tsx")
+  }
+  ["hadolint"] = Builtins.hadolint
+  // hexlet-check.yml is managed by Hexlet's grader and must not be edited.
+  ["jactionlint"] = (Builtins.jactionlint) {
+    exclude = List(".github/workflows/hexlet-check.yml")
+  }
+  ["agnix"] {
+    glob = List("AGENTS.md", "CLAUDE.md", "**/AGENTS.md", "**/SKILL.md")
+    check = "agnix --strict {{files}}"
+  }
+}
+
+// Slow checks: whole-project, run in the pre-push hook (and in check/fix).
+local slow = (fast) {
+  ["dotnet-format"] = Builtins.dotnet_format
+  ["dotnet-test"] {
+    check = "dotnet test"
+  }
+  ["typecheck"] {
+    glob = List("src/Calendar.WebApp/**/*.ts", "src/Calendar.WebApp/**/*.tsx")
+    batch = true
+    check = "pnpm --dir src/Calendar.WebApp run typecheck"
+  }
+}
+
+// CI-only: vulnerability scan needs the network (OSV database), so it is not
+// in the hooks. `mise run check` runs it; it also runs on a weekly schedule.
+local all = (slow) {
+  // --config: repo-root osv-scanner.toml is not auto-discovered when scanning
+  // a lockfile in a subdirectory.
+  ["osv-scanner"] = (Builtins.osv_scanner) {
+    check = "osv-scanner scan source --config=osv-scanner.toml --allow-no-lockfiles {{files}}"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = fast
+  }
+  ["pre-push"] {
+    steps = slow
+  }
+  ["check"] {
+    steps = all
+  }
+  ["fix"] {
+    fix = true
+    steps = all
+  }
+}

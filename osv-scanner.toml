@@ -1,0 +1,9 @@
+# OSV-Scanner ignores. Each entry needs a reason and a review date; the
+# scanner stops ignoring the vulnerability after ignoreUntil.
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+# deepmerge 4.3.1 (prototype pollution) has no fixed release. It enters only
+# through the shadcn codegen CLI (@shadcn/registry), not the shipped bundle.
+reason = "no fixed version; only reachable via the shadcn CLI, not shipped code"
+effectiveUntil = 2027-02-16

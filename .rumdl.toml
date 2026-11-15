@@ -1,0 +1,14 @@
+[global]
+exclude = [
+  "**/node_modules/**",
+  "**/bin/**",
+  "**/obj/**",
+]
+
+# Long URLs and prose lines in the docs cannot be wrapped meaningfully.
+[MD013]
+enabled = false
+
+# README.md uses <details>/<summary> for the collapsible Hexlet section.
+[MD033]
+allowed_elements = ["details", "summary"]

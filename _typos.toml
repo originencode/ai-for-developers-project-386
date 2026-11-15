@@ -1,0 +1,7 @@
+[files]
+# .gitignore contains glob patterns (e.g. "*.[Pp]ublish.xml"), not prose.
+extend-exclude = ["pnpm-lock.yaml", ".gitignore"]
+
+# Project vocabulary that is not in the typos dictionary goes here, one entry
+# per word: word = "word". Do not disable rules; keep the list narrow.
+[default.extend-words]
