@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Pin analyzer rule set to the SDK major version (rule sets change with SDK versions). -->
+    <AnalysisLevel>10.0</AnalysisLevel>
+    <!-- Code style (.editorconfig) is enforced during build, not just in the IDE. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- NuGet Audit: check transitive packages too, and fail on known vulnerabilities. -->
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <WarningsAsErrors>$(WarningsAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>
