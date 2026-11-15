@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/SolutionItems/">
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Calendar.WebApi/Calendar.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Calendar.Tests/Calendar.Tests.csproj" Id="4db8277c-47d6-427e-bcbb-431d666e7c0b" />
+  </Folder>
+</Solution>
