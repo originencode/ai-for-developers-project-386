@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directories:
+      - /src/Calendar.WebApi
+      - /tests/Calendar.Tests
+    schedule:
+      interval: weekly
+    # Delay fresh releases to reduce exposure to compromised packages.
+    cooldown:
+      default-days: 7
+  - package-ecosystem: npm
+    directory: /src/Calendar.WebApp
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
