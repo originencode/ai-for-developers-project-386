@@ -35,3 +35,17 @@ Frontend (from `src/Calendar.WebApp/`):
 
 - `.github/workflows/hexlet-check.yml` — **do not delete, rename, or edit**; Hexlet's grader runs on every push (stated in the file header and README).
 - Frontend code lives under `src/Calendar.WebApp/src/` and talks to the backend only via `/api/*` (relative paths, so the Vite proxy handles it in dev).
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked as GitHub issues on `originencode/ai-for-developers-project-386` via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: `GLOSSARY.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
