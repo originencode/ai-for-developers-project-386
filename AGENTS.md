@@ -22,7 +22,7 @@ Booking-calendar service: one pre-defined owner publishes meeting types with dur
 Backend (from repo root):
 
 - `dotnet run --project src/Calendar.WebApi` — dev server
-- `dotnet test` / `dotnet test --filter "FullyQualifiedName~SomeTest"` — all / single NUnit test
+- `dotnet test` — all
 
 Frontend (from `src/Calendar.WebApp/`):
 
